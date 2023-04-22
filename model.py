@@ -5,14 +5,19 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 
 
-df = pd.read_csv('homeprices.csv')
+df = pd.read_csv('financedata.csv')
 
 X = df[["date"]]
-Y = df[["food", "health", "other"]]
+Y = df[["food", "health", "luxury", "travel", "others"]]
 
 
 reg = linear_model.LinearRegression()
 reg.fit(X, Y)
 
-# pickle.dump(reg, open("model.pkl", "wb"))
-print(reg.predict([[3000]]))
+pickle.dump(reg, open("model.pkl", "wb"))
+result = reg.predict([[202304]])
+retval = 0
+for i in result[0]:
+	retval += i
+
+print(int(retval))
